@@ -1,6 +1,8 @@
 package provision
 
 import (
+	"context"
+
 	"github.com/docker/machine/libmachine/auth"
 	"github.com/docker/machine/libmachine/drivers"
 	"github.com/docker/machine/libmachine/engine"
@@ -21,6 +23,10 @@ type FakeProvisioner struct{}
 
 func NewFakeProvisioner(d drivers.Driver) Provisioner {
 	return &FakeProvisioner{}
+}
+
+func (fp *FakeProvisioner) SSHCommandWithContext(_ context.Context, args string) (string, error) {
+	return "", nil
 }
 
 func (fp *FakeProvisioner) SSHCommand(args string) (string, error) {

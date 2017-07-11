@@ -1,6 +1,7 @@
 package provision
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/docker/machine/libmachine/drivers"
@@ -10,6 +11,10 @@ import (
 
 type RedHatSSHCommander struct {
 	Driver drivers.Driver
+}
+
+func (sshCmder RedHatSSHCommander) SSHCommandWithContext(_ context.Context, args string) (string, error) {
+	return sshCmder.SSHCommand(args)
 }
 
 func (sshCmder RedHatSSHCommander) SSHCommand(args string) (string, error) {

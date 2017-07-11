@@ -1,6 +1,7 @@
 package provision
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/docker/machine/libmachine/auth"
@@ -24,6 +25,8 @@ const (
 type SSHCommander interface {
 	// Short-hand for accessing an SSH command from the driver.
 	SSHCommand(args string) (string, error)
+	// Short-hand for accessing an SSH command from the driver with context.
+	SSHCommandWithContext(ctx context.Context, args string) (string, error)
 }
 
 type Detector interface {

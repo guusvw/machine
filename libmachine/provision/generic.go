@@ -2,6 +2,7 @@ package provision
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"text/template"
 
@@ -26,6 +27,10 @@ type GenericProvisioner struct {
 
 type GenericSSHCommander struct {
 	Driver drivers.Driver
+}
+
+func (sshCmder GenericSSHCommander) SSHCommandWithContext(ctx context.Context, args string) (string, error) {
+	return drivers.RunSSHCommandFromDriverWithContext(ctx, sshCmder.Driver, args)
 }
 
 func (sshCmder GenericSSHCommander) SSHCommand(args string) (string, error) {
