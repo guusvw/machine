@@ -2,6 +2,7 @@ package provision
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"net"
@@ -260,6 +261,10 @@ func (provisioner *Boot2DockerProvisioner) Provision(swarmOptions swarm.Options,
 	}
 
 	return nil
+}
+
+func (provisioner *Boot2DockerProvisioner) SSHCommandWithContext(_ context.Context, args string) (string, error) {
+	return provisioner.SSHCommand(args)
 }
 
 func (provisioner *Boot2DockerProvisioner) SSHCommand(args string) (string, error) {

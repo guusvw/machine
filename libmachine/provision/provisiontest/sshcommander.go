@@ -1,7 +1,10 @@
 //Package provisiontest provides utilities for testing provisioners
 package provisiontest
 
-import "errors"
+import (
+	"context"
+	"errors"
+)
 
 //FakeSSHCommanderOptions is intended to create a FakeSSHCommander without actually knowing the underlying sshcommands by passing it to NewSSHCommander
 type FakeSSHCommanderOptions struct {
@@ -27,6 +30,11 @@ func NewFakeSSHCommander(options FakeSSHCommanderOptions) *FakeSSHCommander {
 	}
 
 	return sshCmder
+}
+
+//SSHCommandWithContext is an implementation of provision.SSHCommander.SSHCommand to provide predictable responses set by testing code
+func (sshCmder *FakeSSHCommander) SSHCommandWithContext(_ context.Context, args string) (string, error) {
+	return sshCmder.SSHCommand(args)
 }
 
 //SSHCommand is an implementation of provision.SSHCommander.SSHCommand to provide predictable responses set by testing code
